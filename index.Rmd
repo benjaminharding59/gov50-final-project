@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Ben Harding"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,6 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+While I am hesitant in the specifications of exactly what I would like to look into, I am reasonably sure that I would like it to be somewhat along the lines of the following.
+
+Much of what my classes focus on this semester is based around the inequalities that stem from the hierarchy structured into American society, favoring the wealthy and genetically favored. I want to look into data that paints a clearer timeline and story of exactly what variables play into an individual in the lower class/poverty overcoming their disadvantages and achieving social or economic mobility, and the type of environmental factors that others should focus on in order to reach the same goal; working their way up the hierarchy. 
