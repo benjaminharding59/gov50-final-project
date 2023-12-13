@@ -19,6 +19,7 @@ Data Visualization
 ```{r}
 library(ggplot2)
 library(dplyr)
+library(tidyverse)
 suicide_rates <- read.csv("https://data.cdc.gov/api/views/9j2v-jamp/rows.csv?accessType=DOWNLOAD")
  
 White_male_data <- suicide_rates |> 
