@@ -73,5 +73,5 @@ ggplot() +
 ```
 Conclusion 
 
-Rates have not slowed, white men's suicide rates follow similar trends to those of the entire population.
+Rates have not slowed, white men's suicide rates follow similar trends to those of the entire population. I neeeed to finish this 
 
