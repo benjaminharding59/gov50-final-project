@@ -9,8 +9,69 @@ output:
 
 
 
-## Project thoughts
+Introduction
 
-While I am hesitant in the specifications of exactly what I would like to look into, I am reasonably sure that I would like it to be somewhat along the lines of the following.
 
-Much of what my classes focus on this semester is based around the inequalities that stem from the hierarchy structured into American society, favoring the wealthy and genetically favored. I want to look into data that paints a clearer timeline and story of exactly what variables play into an individual in the lower class/poverty overcoming their disadvantages and achieving social or economic mobility, and the type of environmental factors that others should focus on in order to reach the same goal; working their way up the hierarchy. 
+Although it has long been understood that white men constitute a large portion of suicides in the United States, this project is interested in whether or not those rates of slowed with recent spikes in awareness and sensitivity training. 
+
+
+Data Visualization 
+```{r}
+library(ggplot2)
+library(dplyr)
+suicide_rates <- read.csv("https://data.cdc.gov/api/views/9j2v-jamp/rows.csv?accessType=DOWNLOAD")
+ 
+White_male_data <- suicide_rates |> 
+  filter(STUB_LABEL == "Male: White") |>
+  filter(AGE == "All ages")
+
+all_persons_data <- suicide_rates |> 
+  filter(STUB_LABEL == "All persons") |>
+  filter(AGE == "All ages")
+
+
+White_men_suicide <- ggplot() + 
+  geom_line(data = White_male_data, mapping = aes(x = YEAR, y = ESTIMATE, color = "White Male")) + 
+  geom_line(data = all_persons_data, mapping = aes(x = YEAR, y = ESTIMATE, color = "All Persons")) + 
+  labs(title = "Suicide Rates Over Years: White Males vs. Average", x = "Year", y = "Suicide Rate per 100,000 Resident Population", color = "Population Group") + theme_minimal()
+White_men_suicide
+
+```
+
+
+
+
+
+
+Plot of Main Analysis and Regression Output  
+
+```{r}
+White_male_fit <- lm(ESTIMATE ~ YEAR, data = White_male_data) 
+
+varnames1 <- c("(Intercept)" = "Intercept", 
+  "YEAR" = "Suicide Rate Among White Men")
+modelsummary::modelsummary(White_male_fit, statistic = "p.value", 
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"),
+                           coef_map = varnames1)
+
+All_persons_fit <- lm(ESTIMATE ~ YEAR, data = all_persons_data)
+varnames1 <- c("(Intercept)" = "Intercept", 
+  "YEAR" = "Suicide Rate Among All Persons")
+modelsummary::modelsummary(All_persons_fit, statistic = "p.value", 
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"),
+                           coef_map = varnames1)
+
+white_male_coefficients <- coef(White_male_fit)
+all_persons_coefficients <- coef(All_persons_fit)
+
+ggplot() +
+  geom_bar(aes(x = "White Males", y = white_male_coefficients[2]), stat = "identity", fill = "blue") +
+  geom_bar(aes(x = "All Persons", y = all_persons_coefficients[2]), stat = "identity", fill = "red") +
+  labs(title = "Growing Suicide Rates: Disproportionately White Men",
+       x = "All Persons vs White Males", y = "Rate of Change in Suicide Rate per Year") +
+  theme_minimal()
+```
+Conclusion 
+
+Rates have not slowed, white men's suicide rates follow similar trends to those of the entire population.
+
