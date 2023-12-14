@@ -1,7 +1,7 @@
 ---
-title: "Gov 50 Final Project"
+title: "Suicide Rates of White Males is Still Growing Disproportionately"
 author: "Ben Harding"
-description: "My final project"
+description: "An inquiry into whether or not the over representation of white males in suicide rates is being addressed since 1950."
 output:
   distill::distill_article:
     self_contained: false
@@ -9,13 +9,18 @@ output:
 
 
 
-Introduction
+# Introduction
+
+The role that men play in society has dramatically shifted in sentiment over the years. No prerequisite data set is needed to understand that masculinity carries a very different connotation in 2023 than it did in 1960. Any member of society who pays attention is aware of the bitter old man complaining about how soft the new generation is. The large majority of my youth and adolescence was spent on a football field or a basketball court, so I have become familiar with a fair share of these characters and their pessimistic attitudes about the general attitude of the human species; men in particular. As a Caucasian male, there is a very limited amount of constructive perspectives I can add to society in regards to our over representation in undesirable statistics. However, recent spikes in mental health awareness have shed light on the fact that my demographic is an outlier among suicide rates. Upon learning about this sad truth, I found myself thinking about the male figures in my life whose tendency for grit and tough masculinity does not seem conducive with making men happier. I want to see how the suicide rates of white males have compared to the national average for all demographics, over an inter generational period. Does the social condition of older generations seem to result in less of a discrepancy than that of recent years, or do contemporary social trends that put an emphasis on mental health, which are not tracked in the data, narrow the gap between white male suicide rates and the national average? I expect to find the latter to be true, meaning that advances in technology and overall human evolution are aligned with improving the well-being of those who are over represented in undesirable statistics. If not, perhaps we need to consider the number of unfortunate variables, such as this, that go neglected in optimizing society.      
 
 
-Although it has long been understood that white men constitute a large portion of suicides in the United States, this project is interested in whether or not those rates of slowed with recent spikes in awareness and sensitivity training. 
+# The Data 
+
+The data set that this project investigates comes from The National Center for Health Statistics (NSHS) within the Center for Disease Control and Prevention (CDC). Their study looks at death rates for suicide, by sex, race, Hispanic origin, and age, from 1950 to 2019. It displays discrepancies between all population groups, but in choosing "White Males" as the independent variable, the variables that we are concerned with can be limited to "STUB_NAME", "YEAR", "ESTIMATE", "AGE". By selecting a specific population group as my independent variable, I used STUB_NAME, YEAR, ESTIMATE, and AGE to produce the rate of change in suicide rates that is my dependent variable. However, this is a comparative analysis between white males and the national average. So, as the plot displays, we aim to see how the rates of suicide among all persons progresses through time in comparison to the rates among white males. 
+
+The plotted data certainly points to the already established fact that white males are committing suicide at much higher rates than that of the entire population. However, it is difficult to determine just how those rates are changing from year to year, so we require a linear model regression to get a closer look at whether or not the gap is narrowing or widening. 
 
 
-Data Visualization 
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -40,23 +45,19 @@ White_men_suicide
 ```
 
 
+# Results 
 
-
-
-
-Plot of Main Analysis and Regression Output  
 
 ```{r}
 White_male_fit <- lm(ESTIMATE ~ YEAR, data = White_male_data) 
-
-varnames1 <- c("(Intercept)" = "Intercept", 
+  varnames1 <- c("(Intercept)" = "Intercept", 
   "YEAR" = "Suicide Rate Among White Men")
 modelsummary::modelsummary(White_male_fit, statistic = "p.value", 
                            gof_map = c("nobs", "r.squared", "adj.r.squared"),
                            coef_map = varnames1)
 
 All_persons_fit <- lm(ESTIMATE ~ YEAR, data = all_persons_data)
-varnames1 <- c("(Intercept)" = "Intercept", 
+  varnames1 <- c("(Intercept)" = "Intercept", 
   "YEAR" = "Suicide Rate Among All Persons")
 modelsummary::modelsummary(All_persons_fit, statistic = "p.value", 
                            gof_map = c("nobs", "r.squared", "adj.r.squared"),
@@ -72,7 +73,15 @@ ggplot() +
        x = "All Persons vs White Males", y = "Rate of Change in Suicide Rate per Year") +
   theme_minimal()
 ```
-Conclusion 
 
-Rates have not slowed, white men's suicide rates follow similar trends to those of the entire population. I neeeed to finish this 
+The regression outputs for each dependent variable, suicide rate among men and among the population as a whole, report opposing significance. Between the two main coefficients of interest, only white males seem to be significant. All Persons is null. 
+
+Throughout the wide timeline under which the data was collected, these coefficients show an overall positive rate of change in suicide rates in general. However, those of white males are growing at more than 5 times as fast as those of all persons combined. The bar graph provided is a great visualization of an alarmingly large disparity. 
+
+
+
+
+# Conclusion  
+
+Our hypothesis that recent social trends would cause the large gap between white male and national average suicide rates to lessen, proved to be incorrect. As the years pass, the results of this project indicate that the already disproportionate amount of white men committing suicide is still growing faster than any other population group. The mind of the grumpy old man may know something after all, then. If my data contained more variables that were concerned with the national attitude towards white men at a certain time, in correlation with their suicide rates, we could compare if the social condition back then was actually more conducive to happiness, or if there were other factors that led the data to be what it is. Regardless, the goal of this project was to determine whether or not the over representation of white men in suicide rates is diminishing with human evolution, which has proved to not be the case.  
 
