@@ -1,5 +1,5 @@
 ---
-title: "Suicide Rates of White Males is Still Growing Disproportionately"
+title: "Suicide Rates in White Males is Still Growing Disproportionately"
 author: "Ben Harding"
 description: "An inquiry into whether or not the over representation of white males in suicide rates is being addressed since 1950."
 output:
